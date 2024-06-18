@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:devServer"      : "npx cypress run --spec cypress/e2e/Tests/MyarTest.cy.js --config-file dev.config.js",
-    "test:StaggingServer" : "npx cypress run --spec cypress/e2e/Tests/MyarTest.cy.js --config-file stagging.config.js"
+    "test:devServer"      : "npx cypress run --spec cypress/e2e/SnoopstarTestCases/MyarTest.cy.js --config-file dev.config.js",
+    "test:StaggingServer" : "npx cypress run --spec cypress/e2e/SnoopstarTestCases/MyarTest.cy.js --config-file stagging.config.js"
   },
   "author": "Prasenjit Sen",
   "license": "ISC",
