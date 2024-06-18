@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   pageLoadTimeout : 720000,
+  defaultCommandTimeout : 6000,
     video:true,
   e2e: {
    

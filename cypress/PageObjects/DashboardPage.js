@@ -11,9 +11,16 @@ export class DashboardPage
         ddlist : {
             logout : "Log out"
         },
+        actions : {
+            startAProduct : "[data-testid=dashboard-create-new-product]"
+        }
     }
 
     //all functions
+    clickOnStartNewProduct()
+    {
+        cy.get(this.locators.actions.startAProduct).click();
+    }
     checkDashboardVisibility()
     {
         cy.contains(this.locators.modules.dashboad).should("be.visible");
