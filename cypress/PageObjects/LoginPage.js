@@ -1,5 +1,6 @@
 export class LoginPage
 {
+    //all web-locators
     locators = {
         ddOptions : {
             langDD : "#custom-select[class~='ng-tns-c124-3']"
@@ -16,6 +17,11 @@ export class LoginPage
         }
     }
 
+    //all functions
+    checkLoginButtonVisibility()
+    {
+        cy.get(this.locators.buttons.login).should("be.visible");
+    }
     clickLogin()
     {
         cy.get(this.locators.buttons.login).click();
