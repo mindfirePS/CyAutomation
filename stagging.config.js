@@ -9,7 +9,7 @@ module.exports = defineConfig({
   env: {
     url : "https://staging.snoopstar.com",
     email : "client_automation@gmail.com",
-    password : "Mindfire!1",
-    langEN : "EN",
+    password : "Mindfire!1"
+    
   }
 });
