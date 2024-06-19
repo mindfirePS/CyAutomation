@@ -53,7 +53,7 @@
     dashboadPageObj.checkDashboardVisibility();
   })
   
-    it('Standard Product Creation', () => {
+    it.skip('Standard Product Creation', () => {
       
       dashboadPageObj.clickOnStartNewProduct();
       
@@ -80,7 +80,7 @@
 
       
     })
-    it("Delete a product",()=>{
+    it.skip("Delete a product",()=>{
       cy.wait(2000);
       dashboadPageObj.clickOnProducts();
       productsPageObj.enterProductNameInSearch("CyStdPrd");
@@ -95,7 +95,7 @@
       productsPageObj.closeProducts();
     })
    
-    it("Open a Product",()=>{
+    it.skip("Open a Product",()=>{
       cy.wait(2000);
       dashboadPageObj.clickOnProducts();
       productsPageObj.enterProductNameInSearch("CyStdPrd");
@@ -106,7 +106,7 @@
 
     })
 
-    it.only("Add target",()=>{
+    it.skip("Add target",()=>{
       cy.wait(2000);
       dashboadPageObj.clickOnProducts();
       productsPageObj.enterProductNameInSearch("CyStdPrd");
@@ -140,12 +140,71 @@
       //Success
       //Target sync finished
     })
-    /*
+    it.skip("Creating a Standard Product and deleting it",()=>{
+      dashboadPageObj.clickOnStartNewProduct();
+      
+      selectProductTypePageObj.clickOnConfirmButton();
+
+      stdProdSetupPageObj.enterProductName("CyStdPrd");
+      stdProdSetupPageObj.selectProductType("Booklets");
+      stdProdSetupPageObj.selectActCountries();
+
+      actCountryPageObj.clickOnFastSelection();
+      actCountryPageObj.selectCountry("America");
+      actCountryPageObj.clickSaveAndClose();
+      
+      stdProdSetupPageObj.clickMasterLangSetup();
+
+      masterLangPageObj.selectMasterLanguage();
+      
+      actCountryPageObj.clickSaveAndClose();
+
+      cy.wait(2000);
+      stdProdSetupPageObj.clickSaveAndOpenInEditor();
+
+      editorPageObj.verifyProdName("CyStdPrd");
+
+      editorPageObj.clickAddTarget();
+      targetPgObj.clickOnSelect();
+      mediaPgObj.enterMediaToSearch("panda.jpg");
+      mediaPgObj.clickOnMediaName();
+      mediaPgObj.clickOnSelect();
+
+      cy.wait(2000);
+      targetImageSizePgObj.clickOnOk();
+
+      flashMsgObj.verifyStatus("Processing");
+      flashMsgObj.verifyMessage("Uploading, please wait ...");
+
+      targetPgObj.clickOnSaveChanges()
+
+      flashMsgObj.verifyStatus("Processing");
+      flashMsgObj.verifyMessage("Given image will be processed in the background.");
+      
+      cy.wait(4500);
+      flashMsgObj.verifyStatus("Success");
+      flashMsgObj.verifyMessage("Target sync finished");
+
+      cy.wait(2000);
+      dashboadPageObj.clickOnProducts();
+      productsPageObj.enterProductNameInSearch("CyStdPrd");
+      productsPageObj.verifyProductName("CyStdPrd");
+      cy.wait(60000);
+      productsPageObj.clickProdTrashIcon();
+
+      delContentPageObj.verifyProductName("CyStdPrd");
+      delContentPageObj.clickDeleteButton();
+      flashMsgObj.verifyStatus("Success");
+      flashMsgObj.verifyMessage("Product deleted successfully.");
+      productsPageObj.verifyNoDataAvailableIsDisplayed();
+      productsPageObj.closeProducts();
+    })
+    // /*
     afterEach("Logout from snoopstar",()=>{
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   
       loginPageObj.checkLoginButtonVisibility();
     })
-    */
+    // */
   })
