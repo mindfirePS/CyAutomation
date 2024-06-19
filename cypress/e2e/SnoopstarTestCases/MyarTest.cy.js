@@ -199,12 +199,21 @@
       productsPageObj.verifyNoDataAvailableIsDisplayed();
       productsPageObj.closeProducts();
     })
-    // /*
+    it.only("TC-112 Snoopstar-1.8.4 MYAR-1935 Recreating snoopcodes leads to an error : Verify personlizing shortcode is possible after deactivating and reactivating Experience sharing",()=>{
+      cy.wait(2000);
+      dashboadPageObj.clickOnProducts();
+      productsPageObj.enterProductNameInSearch("TestMyar1935Std");
+      productsPageObj.verifyProductName("TestMyar1935Std");
+      productsPageObj.clickShowLanguages();
+      productsPageObj.clickOpenProdInEditor();
+      editorPageObj.verifyProdName("TestMyar1935Std");
+    })
+    /*
     afterEach("Logout from snoopstar",()=>{
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   
       loginPageObj.checkLoginButtonVisibility();
     })
-    // */
+    */
   })
