@@ -9,9 +9,15 @@
   import { ProductsPage } from "../../PageObjects/ProductsPage";
   import { DeleteContentPage } from "../../PageObjects/DeleteContentPage";
   import { FlashMessage } from "../../PageObjects/FlashMessage";
+  import { TargetPage } from "../../PageObjects/TargetPage";
+  import { MediaPage } from "../../PageObjects/MediaPage";
+  import { TargetImageSizePg } from "../../PageObjects/TargetImageSizePg";
 
 
   //Initializing all Page Objects
+  const targetImageSizePgObj = new TargetImageSizePg();
+  const mediaPgObj = new MediaPage();
+  const targetPgObj = new TargetPage();
   const loginPageObj = new LoginPage();
   const dashboadPageObj = new DashboardPage();
   const selectProductTypePageObj = new ProductTypeSelectionPage();
@@ -89,7 +95,7 @@
       productsPageObj.closeProducts();
     })
    
-    it.only("Open a Product",()=>{
+    it("Open a Product",()=>{
       cy.wait(2000);
       dashboadPageObj.clickOnProducts();
       productsPageObj.enterProductNameInSearch("CyStdPrd");
@@ -98,6 +104,41 @@
       productsPageObj.clickOpenProdInEditor();
       editorPageObj.verifyProdName("CyStdPrd");
 
+    })
+
+    it.only("Add target",()=>{
+      cy.wait(2000);
+      dashboadPageObj.clickOnProducts();
+      productsPageObj.enterProductNameInSearch("CyStdPrd");
+      productsPageObj.verifyProductName("CyStdPrd");
+      productsPageObj.clickShowLanguages();
+      productsPageObj.clickOpenProdInEditor();
+      editorPageObj.verifyProdName("CyStdPrd");
+
+      editorPageObj.clickAddTarget();
+      targetPgObj.clickOnSelect();
+      mediaPgObj.enterMediaToSearch("panda.jpg");
+      mediaPgObj.clickOnMediaName();
+      mediaPgObj.clickOnSelect();
+
+      cy.wait(2000);
+      targetImageSizePgObj.clickOnOk();
+
+      flashMsgObj.verifyStatus("Processing");
+      flashMsgObj.verifyMessage("Uploading, please wait ...");
+
+      targetPgObj.clickOnSaveChanges()
+
+      flashMsgObj.verifyStatus("Processing");
+      flashMsgObj.verifyMessage("Given image will be processed in the background.");
+      
+      cy.wait(4500);
+      flashMsgObj.verifyStatus("Success");
+      flashMsgObj.verifyMessage("Target sync finished");
+      //Processing
+      //Given image will be processed in the background.
+      //Success
+      //Target sync finished
     })
     /*
     afterEach("Logout from snoopstar",()=>{
