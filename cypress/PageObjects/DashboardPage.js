@@ -3,7 +3,8 @@ export class DashboardPage
     //all web-locators
     locators = {
         modules : {
-            dashboad  : "DASHBOARD"
+            dashboad  : "DASHBOARD",
+            products : "PRODUCTS"
         },
         ddOptions : {
             user : "input#custom-select[class~='ng-tns-c124-7']"
@@ -17,6 +18,10 @@ export class DashboardPage
     }
 
     //all functions
+    clickOnProducts()
+    {
+        cy.contains(this.locators.modules.products).click();
+    }
     clickOnStartNewProduct()
     {
         cy.get(this.locators.actions.startAProduct).click();

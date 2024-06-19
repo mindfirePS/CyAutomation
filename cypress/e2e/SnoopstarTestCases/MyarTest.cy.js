@@ -6,8 +6,11 @@
   import { ActiveCountriesPage } from "../../PageObjects/ActiveCountriesPage";
   import { SelectMasterLangPage } from "../../PageObjects/SelectMasterLangPage";
   import { EditorPage } from "../../PageObjects/EditorPage";
+  import { ProductsPage } from "../../PageObjects/ProductsPage";
+  import { DeleteContentPage } from "../../PageObjects/DeleteContentPage";
+  import { FlashMessage } from "../../PageObjects/FlashMessage";
 
-  
+
   //Initializing all Page Objects
   const loginPageObj = new LoginPage();
   const dashboadPageObj = new DashboardPage();
@@ -16,6 +19,12 @@
   const actCountryPageObj = new ActiveCountriesPage();
   const masterLangPageObj = new SelectMasterLangPage();
   const editorPageObj = new EditorPage();
+  const productsPageObj = new ProductsPage();
+  const delContentPageObj = new DeleteContentPage();
+  const flashMsgObj = new FlashMessage();
+
+
+
 
   describe('Snoopstar test cases', () => {
 
@@ -38,7 +47,8 @@
     dashboadPageObj.checkDashboardVisibility();
   })
   
-    it('test', () => {
+    it('Standard Product Creation', () => {
+      
       dashboadPageObj.clickOnStartNewProduct();
       
       selectProductTypePageObj.clickOnConfirmButton();
@@ -61,13 +71,29 @@
       stdProdSetupPageObj.clickSaveAndOpenInEditor();
 
       editorPageObj.verifyProdName("CyStdPrd");
+
+      
     })
-    /*
+    it("Delete a product",()=>{
+      cy.wait(2000);
+      dashboadPageObj.clickOnProducts();
+      productsPageObj.enterProductNameInSearch("CyStdPrd");
+      productsPageObj.verifyProductName("CyStdPrd");
+      productsPageObj.clickProdTrashIcon();
+
+      delContentPageObj.verifyProductName("CyStdPrd");
+      delContentPageObj.clickDeleteButton();
+      flashMsgObj.verifyStatus("Success");
+      flashMsgObj.verifyMessage("Product deleted successfully.");
+      productsPageObj.verifyNoDataAvailableIsDisplayed();
+      productsPageObj.closeProducts();
+    })
+   
     afterEach("Logout from snoopstar",()=>{
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   
       loginPageObj.checkLoginButtonVisibility();
     })
-    */
+    
   })
