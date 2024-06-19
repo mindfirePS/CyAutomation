@@ -13,10 +13,21 @@ export class ProductsPage
             prodTrash : ".product-name~.delete-btn>i"
         },
         buttons : {
-            prodClose : "[data-testid=header-close-item]"
+            prodClose : "[data-testid=header-close-item]",
+            showLang : ".open-close-btn button",
+            openProdEditor : ".act-deact-btn [data-testid=product-setup-test-id]"
         }
+    
+    }
 
-        
+    clickOpenProdInEditor()
+    {
+        cy.get(this.locators.buttons.openProdEditor).click();
+    }
+
+    clickShowLanguages()
+    {
+        cy.get(this.locators.buttons.showLang).click();
     }
     closeProducts()
     {

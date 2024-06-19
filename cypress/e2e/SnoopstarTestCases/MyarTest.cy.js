@@ -89,11 +89,22 @@
       productsPageObj.closeProducts();
     })
    
+    it.only("Open a Product",()=>{
+      cy.wait(2000);
+      dashboadPageObj.clickOnProducts();
+      productsPageObj.enterProductNameInSearch("CyStdPrd");
+      productsPageObj.verifyProductName("CyStdPrd");
+      productsPageObj.clickShowLanguages();
+      productsPageObj.clickOpenProdInEditor();
+      editorPageObj.verifyProdName("CyStdPrd");
+
+    })
+    /*
     afterEach("Logout from snoopstar",()=>{
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   
       loginPageObj.checkLoginButtonVisibility();
     })
-    
+    */
   })
