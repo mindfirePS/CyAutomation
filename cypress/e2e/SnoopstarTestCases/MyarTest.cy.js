@@ -12,9 +12,15 @@
   import { TargetPage } from "../../PageObjects/TargetPage";
   import { MediaPage } from "../../PageObjects/MediaPage";
   import { TargetImageSizePg } from "../../PageObjects/TargetImageSizePg";
+  import { ExperienceSharing } from "../../PageObjects/ExperienceSharing";
+  import { PersonaliseShortCode } from "../../PageObjects/PersonaliseShortCode";
 
+  import { ExpSharLinkSnoopCode } from "../../PageObjects/ExpSharLinkSnoopCode";
 
   //Initializing all Page Objects
+  const personaliseShortCode = new PersonaliseShortCode();
+  const expSharingPgObj = new ExperienceSharing();
+  const ExpSharLinkSnoopCodeObj = new ExpSharLinkSnoopCode(); 
   const targetImageSizePgObj = new TargetImageSizePg();
   const mediaPgObj = new MediaPage();
   const targetPgObj = new TargetPage();
@@ -207,13 +213,39 @@
       productsPageObj.clickShowLanguages();
       productsPageObj.clickOpenProdInEditor();
       editorPageObj.verifyProdName("TestMyar1935Std");
+
+      cy.wait(2000);
+      editorPageObj.clickSharing();
+      
+      ExpSharLinkSnoopCodeObj.clickToDeactivate();
+      flashMsgObj.verifyStatus("Success");
+      flashMsgObj.verifyMessage("Sharing deactivated");
+
+      ExpSharLinkSnoopCodeObj.clickToActivate();
+      flashMsgObj.verifyStatus("Success");
+      flashMsgObj.verifyMessage("Sharing activated");
+
+      const shortCodes = ["89o9ty", "iid0cki"];
+      for (let sCode of shortCodes) 
+        {
+          ExpSharLinkSnoopCodeObj.clickChangeSettingsCreateNew();
+          expSharingPgObj.clickPersonaliseCode();
+          personaliseShortCode.enterNewShortCode(sCode);
+          personaliseShortCode.clickSave();
+          expSharingPgObj.clickCreate();
+          expSharingPgObj.clickCreateNewSharingLink();
+          ExpSharLinkSnoopCodeObj.verifySnoopCodeQRvisible();
+          
+        }
+        ExpSharLinkSnoopCodeObj.clickExpSharLinkSnoopCodeModalClose();
+
     })
-    /*
+    // /*
     afterEach("Logout from snoopstar",()=>{
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   
       loginPageObj.checkLoginButtonVisibility();
     })
-    */
+    // */
   })
