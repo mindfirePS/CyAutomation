@@ -14,10 +14,11 @@
   import { TargetImageSizePg } from "../../PageObjects/TargetImageSizePg";
   import { ExperienceSharing } from "../../PageObjects/ExperienceSharing";
   import { PersonaliseShortCode } from "../../PageObjects/PersonaliseShortCode";
-
+  import { DataCheckerPage } from "../../PageObjects/DataCheckerPage";
   import { ExpSharLinkSnoopCode } from "../../PageObjects/ExpSharLinkSnoopCode";
 
   //Initializing all Page Objects
+  const dataCheckerPgObj = new DataCheckerPage();
   const personaliseShortCode = new PersonaliseShortCode();
   const expSharingPgObj = new ExperienceSharing();
   const ExpSharLinkSnoopCodeObj = new ExpSharLinkSnoopCode(); 
@@ -131,17 +132,20 @@
     
     dashboadPageObj.checkDashboardVisibility();
   })
-  
-    it.skip("Open a Product",()=>{
+    it.only("Verify Data size checker is opening",()=>{
       cy.wait(2000);
       dashboadPageObj.clickOnProducts();
-      productsPageObj.enterProductNameInSearch("CyStdPrd");
-      productsPageObj.verifyProductName("CyStdPrd");
+      productsPageObj.enterProductNameInSearch("DataCheckerProduct");
+      productsPageObj.verifyProductName("DataCheckerProduct");
       productsPageObj.clickShowLanguages();
       productsPageObj.clickOpenProdInEditor();
-      editorPageObj.verifyProdName("CyStdPrd");
+      editorPageObj.verifyProdName("DataCheckerProduct");
 
+      editorPageObj.clickDataChecker();
+      dataCheckerPgObj.dataSizeCheckerIsDisplayed();
+      dataCheckerPgObj.clickClose();
     })
+   
 
    
     it("Creating a Standard Product and deleting it",()=>{
@@ -241,6 +245,7 @@
     })
     // /*
     afterEach("Logout from snoopstar",()=>{
+      cy.wait(3000);
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   

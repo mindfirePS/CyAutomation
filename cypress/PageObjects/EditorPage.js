@@ -6,8 +6,13 @@ export class EditorPage
         },
         buttons : {
             addTarget : "[data-testid^=add-target]",
-            sharing : "i.fa-share-alt"
+            sharing : "i.fa-share-alt",
+            dataChecker : "button.scene-data-size"
         }
+    }
+    clickDataChecker()
+    {
+        cy.get(this.locators.buttons.dataChecker).click();
     }
     clickSharing()
     {
