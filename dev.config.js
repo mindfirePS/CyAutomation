@@ -10,7 +10,8 @@ module.exports = defineConfig({
   env: {
     url : "http://188.118.60.68",
     email : "clientdeepak@gmail.com",
-    password : "Mindfire1!"
+    password : "Mindfire1!",
+    fixtureFileName : "MyarDevLoginDetails"
     
   }
 });

@@ -28,11 +28,11 @@ export class LoginPage
     }
     enterEmail(email)
     {
-        cy.get(this.locators.inputTextBox.emailAdd).type(email);
+        cy.get(this.locators.inputTextBox.emailAdd).clear().type(email);
     }
     enterPassword(pwd)
     {
-        cy.get(this.locators.inputTextBox.password).type(pwd);
+        cy.get(this.locators.inputTextBox.password).clear().type(pwd);
     }
     clickOnLangDD()
     {

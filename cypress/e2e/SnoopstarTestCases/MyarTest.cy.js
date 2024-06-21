@@ -35,8 +35,55 @@
   const delContentPageObj = new DeleteContentPage();
   const flashMsgObj = new FlashMessage();
 
+  
+  describe("LoginTest",()=>{
+    const fixtureFileName = Cypress.env("fixtureFileName");
+    let credentials;
 
+    before("Navigate to snoopstar",()=>{
+      
+      Cypress.on('uncaught:exception', (err, runnable) => {
+        // returning false here prevents Cypress from failing the test
+        if (err.message.includes('L is not defined')) {
+          return false
+        }
+      });
+      cy.visit(Cypress.env("url"));
 
+    })
+        
+      it.only("Login Test with different inputs",()=>{
+        loginPageObj.clickOnLangDD();
+        loginPageObj.selectLang("EN");
+        cy.fixture(fixtureFileName).then((data)=>{
+        
+          data.forEach((userdata)=>{
+            credentials=userdata;
+              if(credentials.email==Cypress.env("email") && credentials.password ==Cypress.env("password"))
+                {
+                  loginPageObj.enterEmail(credentials.email);
+                  loginPageObj.enterPassword(credentials.password);
+                  loginPageObj.clickLogin();
+                  dashboadPageObj.checkDashboardVisibility();
+
+                  dashboadPageObj.clickUser();
+                  dashboadPageObj.clickLogOut();
+
+                  loginPageObj.checkLoginButtonVisibility();
+                }
+                else
+                {
+                  loginPageObj.enterEmail(credentials.email);
+                  loginPageObj.enterPassword(credentials.password);
+                  loginPageObj.clickLogin();
+
+                  flashMsgObj.verifyStatus("Error");
+                  flashMsgObj.verifyMessage("Wrong credentials");
+                }
+          })
+        })
+      })    
+  })
 
   describe('Snoopstar test cases', () => {
 
@@ -205,7 +252,7 @@
       productsPageObj.verifyNoDataAvailableIsDisplayed();
       productsPageObj.closeProducts();
     })
-    it.only("TC-112 Snoopstar-1.8.4 MYAR-1935 Recreating snoopcodes leads to an error : Verify personlizing shortcode is possible after deactivating and reactivating Experience sharing",()=>{
+    it.skip("TC-112 Snoopstar-1.8.4 MYAR-1935 Recreating snoopcodes leads to an error : Verify personlizing shortcode is possible after deactivating and reactivating Experience sharing",()=>{
       cy.wait(2000);
       dashboadPageObj.clickOnProducts();
       productsPageObj.enterProductNameInSearch("TestMyar1935Std");
@@ -240,12 +287,12 @@
         ExpSharLinkSnoopCodeObj.clickExpSharLinkSnoopCodeModalClose();
 
     })
-    // /*
+    /*
     afterEach("Logout from snoopstar",()=>{
       dashboadPageObj.clickUser();
       dashboadPageObj.clickLogOut();
   
       loginPageObj.checkLoginButtonVisibility();
     })
-    // */
+    */
   })

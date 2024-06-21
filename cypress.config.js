@@ -12,6 +12,7 @@ module.exports = defineConfig({
   env: {
     url : "https://staging.snoopstar.com",
     email : "client_automation@gmail.com",
-    password : "Mindfire!1"
+    password : "Mindfire1!",
+    fixtureFileName : "MyarStaggingLoginDetails"
   }
 });
